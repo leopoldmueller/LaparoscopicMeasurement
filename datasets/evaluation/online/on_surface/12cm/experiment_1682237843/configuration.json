@@ -1,0 +1,56 @@
+{
+    "run": true,
+    "task": "measure",
+    "path_source_root": "D:/04_Datasets/Charite/d435/new_setup/",
+    "path_source_data": "",
+    "path_target_data": "datasets/evaluation/offline/on_surface/12cm",
+    "method": "online",
+    "path_to_data": "datasets/evaluation/online/on_surface/wave",
+    "measure": {
+        "result_type": "individual",
+        "path_data_to_measure": "datasets/evaluation/online/on_surface/12cm",
+        "disparity_map_type": "raft_stereo",
+        "surface_reconstruction": "poisson",
+        "ground_truth": 120.0,
+        "visualize": false,
+        "crop": true,
+        "offset": 20.0,
+        "every_nth": 10,
+        "spline_s": 0.4,
+        "poisson": {
+            "densities_optimization": false,
+            "depth": 12,
+            "width": 0,
+            "scale": 1.0,
+            "linear_fit": true,
+            "visualize_mesh": false
+        }
+    },
+    "search_space": {
+        "disparity_map_type": [
+            "raft_stereo",
+            "sgbm"
+        ],
+        "surface_reconstruction": [
+            "poisson"
+        ],
+        "offset": [
+            10.0,
+            20.0,
+            50.0,
+            1000.0
+        ],
+        "every_nth": [
+            1,
+            5,
+            10,
+            20
+        ],
+        "spline_s": [
+            0.1,
+            0.4,
+            2,
+            5
+        ]
+    }
+}
