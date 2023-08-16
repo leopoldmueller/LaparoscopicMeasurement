@@ -4,6 +4,7 @@
 
 [![Python version](https://img.shields.io/badge/python-3.10.4-green.svg)](https://www.python.org/downloads/)
 
+![plot](/src/readme/approach.png)
 
 Laparoscopic surgery poses unique challenges for accurate measurement of structures due to limited working space, specialized instruments, and distorted camera perspectives. In response to these challenges, we propose a versatile, Human-AI based measurement tool designed specifically for laparoscopic surgery, utilizing stereo vision and offering the possibility to measure distances during surgery. Collaborating with medical experts from the Charite Berlin, this thesis outlines the key requirements for such a tool, develops a general measurement tool fulfilling these, and evaluates the proposed approach using an experimental design in various environments. Our experimental results show the potential of the proposed approach, achieving high accuracy and demonstrating robustness when applied to real image data. The integration of AI-based components, such as RAFT-Stereo and YOLOv8, was instrumental in achieving these results. By addressing the inherent challenges of laparoscopic surgery, this approach can lead to the development of a more robust and accurate solution for intra- and post-operative measurements, enabling more precise and efficient surgical procedures
 
