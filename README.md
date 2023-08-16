@@ -23,11 +23,11 @@ Now you can get your code ready:
 1. Clone this repository and initialize the submodules
 
 ```
-git clone https://github.com/leopoldmueller/SurgicalDimensionMeasurement.git
+git clone https://github.com/leopoldmueller/LaparoscopicMeasurement.git
 ```
 
 ```
-cd THESIS_MUELLER
+cd LaparoscopicMeasurement
 ```
 
 ```
