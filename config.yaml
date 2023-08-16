@@ -1,0 +1,102 @@
+# This is the config.yaml of surg_dimes. You can set all settings here. The changes will effect the result of running the main.py
+
+# Camera parameters to use
+camera:
+  path_camera_specs: 'cameras/realsense.yaml'
+
+# Parameters for RAFT-STEREO
+raftstereo:
+  run: False  # Set to True if you want to create disparity maps
+  path_left_images: "datasets/daVinci/test/image_0"    # Path to dir with left images
+  path_right_images: "datasets/daVinci/test/image_1"    # Path to dir with right images
+  path_output_dir: "datasets/daVinci/test/disparity/"      # Path to directory where disparity maps are saved
+  restore_ckpt: "models/raftstereo-middlebury.pth"     # Path to pretrained model (we use the middlebury.pth from their repository)
+  save_numpy: True      # If True disparity maps are stored as .png and .npy
+  mixed_precision: True
+  valid_iters: 16     # Number of flow-field updates during forward pass
+  divis_by: 16        # This directly influences the size of the disparity map
+  rgb: True    # True if RGB, False if monochrome
+
+# Parameters for yolov8 (only needed for online measurements)
+yolov8:
+  # Testing
+  test: False   # Set this to true to test your model
+  mode: 'realsense'   # Choose between 'realsense' to test on realsense stream or 'image' to test on an image and 'webcam' to test on webcam stream
+  image_path: 'datasets/Charite/on_surface3/infrared/left/1349151236.png'  # To specify if you want to test the model on an image
+  show: True    # Show results
+  conf: 0.25    # Confidence threshold
+  iou: 0.7    # Intersection over union threshold
+  data: 'coco128.yaml'  # Path to training data
+  imgsz: 640    # Inference size
+  epochs: 25    # Number of epochs to train
+  weights: 'models/miccai2020.pt'   # Path to your model
+  save: False   # Wether to save the predictions
+
+# Parameters for measurement with user interface
+user_interface:
+  run: True
+  method: 'offline' # Choose between 'online' and 'offline'
+  path_camera_specs: 'cameras/realsense.yaml' # Path to camera specs
+  path_left_images: "datasets/evaluation/online/on_surface/4cm/left"
+  path_disparity_maps: "datasets/evaluation/online/on_surface/4cm/disparity"
+  rgb: False  # True if you have rgb images, otherwise False
+  crop: True  # True if you want to crop the region arround the measurement
+  offset: 40.0  # Offset for cropping in mm
+  surface_reconstruction: 'poisson'   # Surface reconstruction algorithm
+  # Poisson mesh creation
+  poisson:
+    densities_optimization: False
+    depth: 12
+    width: 0
+    scale: 1.0
+    linear_fit: True
+    visualize_mesh: False
+  spline_interpolation: True
+  show_point_cloud: False
+  visualize_in_mesh: True
+
+# Evaluation
+evaluation:
+  run: False
+  task: 'measure'   # Choose between 'select_images', 'create_labels', 'measure' (Note that the tasks need to be done sequentially!)
+  
+  # Task: 'select_images'
+  path_source_root: 'D:/04_Datasets/Charite/d435/new_setup/'  # Path to dir with all videos (loop over videos and select images which show the region of interest)
+  path_source_data: ''
+  path_target_data: 'datasets/evaluation/online/on_surface/wave'  # Path to experiment directory
+  
+  # Task: 'create_labels'
+  method: 'offline'    # Choose between 'online' and 'offline'
+  path_to_data: 'datasets/evaluation/offline/on_surface/4cm'  # Path to experiment directory
+  store_labels_as_image: False
+  
+  # Task: 'measure'
+  measure:
+    result_type: 'individual'   # Choose between 'all_in_one' and 'individual'
+    path_data_to_measure: 'datasets/evaluation/offline/on_surface/triangle'
+    disparity_map_type: 'raft_stereo'    # Choose betweend 'raft_stereo' (RAFT-STEREO) and 'sgbm'
+    surface_reconstruction: 'poisson'   # Choose between 'alpha', 'poisson' and 'pivoting'
+    ground_truth: 120.0    # Ground truth distance in mm
+    visualize: True
+    crop: True
+    offset: 10.0
+    every_nth: 10
+    spline_s: 0.4
+    
+    # Poisson paramters
+    poisson:
+      densities_optimization: False
+      depth: 12   # Depth of octree
+      width: 0
+      scale: 1.0
+      linear_fit: True
+      visualize_mesh: False
+
+  # Parameter space for grid search
+  search_space:
+    disparity_map_type: ['raft_stereo', 'sgbm']    # Choose betweend 'raft_stereo' (RAFT-STEREO) and 'sgbm'
+    surface_reconstruction: ['poisson']   # Choose between 'alpha', 'poisson' and 'pivoting'
+    offset: [10.0, 20.0, 50.0, 1000.0]
+    every_nth: [1, 5, 10, 20]
+    spline_s: [0.1, 0.4, 2, 5]
+

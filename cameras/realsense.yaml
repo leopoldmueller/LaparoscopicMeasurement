@@ -1,0 +1,33 @@
+# Camera intrinsics
+intrinsics:
+  fx: 427.251
+  fy: 427.251
+  imy: 480
+  imx: 848
+  b: -49.9002
+  cx: 428.983
+  cy: 238.754
+  f: 427.251  # Not sure if f=fx=fy
+
+# Camera extrinsics
+extrinsics:
+  # Left camera rotations
+  lrxx: 0.999993
+  lrxy: 0.00136716
+  lrxz: 0.00358809
+  lryx: -0.00136373
+  lryy: 0.999999
+  lryz: -0.000959321
+  lrzx: -0.0035894
+  lrzy: 0.000954421
+  lrzz: 0.999993
+  # Right camera rotations
+  rrxx: 0.999985
+  rrxy: 0.000519771
+  rrxz: 0.00540066
+  rryx: -0.000524939
+  rryy: 0.999999
+  rryz: 0.000955459
+  rrzx: -0.00540016
+  rrzy: -0.00095828
+  rrzz: 0.999985
