@@ -77,7 +77,7 @@ python main.py
 
 ## Usage | Settings
 
-You can set all settings in the config.yaml. So indepentend from your task you can always run the main.py.
+You can set all settings in the config.yaml. So independent from your task you can always run the main.py.
 
 ## Usage | Run the measurement tool
 
